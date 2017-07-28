@@ -1,0 +1,12 @@
+#!/usr/bin/env ruby
+################################################################################
+#    CLI Tests 
+################################################################################
+require 'zt_btce'   # lib/zt_btce.rb
+
+# Initial test
+#t = ZtBtce::CliTest.new
+#t.say_hello
+
+# YAML file handling
+#t.get_data
