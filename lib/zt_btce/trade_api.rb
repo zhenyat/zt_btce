@@ -25,22 +25,6 @@ module ZtBtce
       return JSON.parse(response) 
     end
   end
-
-  ##############################################################################
-  # Checks that response is not an error message aka:
-  #   {"success":0, "error":"no orders"}
-  # If error: returns empty hash, otherwise: returns response
-  # 
-  # caller_locations(1,1)[0].label - the calling method
-  ##############################################################################  
-  def self.trade_error_check response
-    if response.first[1] == 0  # status = 0
-      puts colored RED, "#{timestamp}  Error in method '#{caller_locations(1,1)[0].label}': #{response['error']}"
-      {}
-    else
-      response
-    end
-  end
   
   def self.account_info
     trade_error_check trade_api('getInfo')
@@ -59,6 +43,22 @@ module ZtBtce
       trade_error_check trade_api('OrderInfo', 'order_id' =>  order_id)
      else
       trade_error_check trade_emulator('OrderInfo', opts)
+    end
+  end
+
+  ##############################################################################
+  # Checks that response is not an error message aka:
+  #   {"success":0, "error":"no orders"}
+  # If error: returns empty hash, otherwise: returns response
+  # 
+  # caller_locations(1,1)[0].label - the calling method
+  ##############################################################################  
+  def self.trade_error_check response
+    if response.first[1] == 0  # status = 0
+      puts colored RED, "#{timestamp}  Error in method '#{caller_locations(1,1)[0].label}': #{response['error']}"
+      {}
+    else
+      response
     end
   end
 end

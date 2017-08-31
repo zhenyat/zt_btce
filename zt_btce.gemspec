@@ -12,7 +12,7 @@ Gem::Specification.new do |spec|
   spec.summary       = %q{Ruby-BTCE API}
   spec.description   = %q{To develop and test BTCE API on Ruby / RoR / CLI}
   spec.homepage      = "http://dummy.com"
-#  spec.license       = "MIT"
+  spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
   # to allow pushing to a single host or delete this section to allow pushing to any host.
@@ -30,9 +30,9 @@ Gem::Specification.new do |spec|
   spec.executables   = ["zt_btce"] #spec.files.grep(%r{^exe/}) { |f| File.basename(f) }spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_dependency 'json'
-  spec.add_dependency 'hashie'
-  spec.add_dependency 'httparty'
+  spec.add_dependency 'json',     '~> 2.1'
+  spec.add_dependency 'hashie',   '~> 3.5'
+  spec.add_dependency 'httparty', '~> 0.15.6'
 
   spec.add_development_dependency "bundler", "~> 1.15"
   spec.add_development_dependency "rake", "~> 12.0"

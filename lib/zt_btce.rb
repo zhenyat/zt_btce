@@ -19,27 +19,28 @@ module ZtBtce
     AppRoot = `pwd`.chomp
     
     def say_hello
-      puts "Hello from ZtBtce! Just first test"
+      puts ZtBtce::colored BLUE, "Hello from ZtBtce! Just first test" 
     end
   end
   
   def self.error_check response
-    puts response
-    if response.first[0] == 'success' and response.first[1] == 0
-      puts colored RED, "#{timestamp}  #{response['error']}"
-      {}
-    else
-      response
+    if !response.nil?
+      if response.first[0] == 'success' and response.first[1] == 0
+        puts colored RED, "#{timestamp}  #{response['error']}"
+        {}
+      else
+        response
+      end
     end
   end
   
-  error_check debug_connection
+#  error_check debug_connection
  
    
 #####  Testing Public API   #####
 #  puts "-----   info   ------"
 #  puts info
-#  
+
 #  puts "-----   ticker   ------"
 #  puts ticker pairs: 'btc_rur-btc_eur-btc_usd'
 
@@ -59,6 +60,6 @@ module ZtBtce
 #  puts active_orders
 #  puts active_orders "pair" => 'btc_rur'
 
-  #  puts "-----    ActiveOrders   -----"
+#  puts "-----    ActiveOrders   -----"
 #  puts order_info 343152, 'mode' => 'emulator'
 end

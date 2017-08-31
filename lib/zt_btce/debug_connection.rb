@@ -29,13 +29,13 @@ module ZtBtce
       puts "response.class.name: #{response.class.name}"
       puts "========="
   
-      puts "response.code: #{response.code}"          # => 200 | 522         | 302   | 301
-      puts "response.message: #{response.message}"    # => OK  | ...Time-out | Found | Moved Permanently
+      puts "response.code: #{response.code}"          # => 200 | 302   | 301               | 503                             | 522
+      puts "response.message: #{response.message}"    # => OK  | Found | Moved Permanently | Service Temporarily Unavailable |  ...Time-out 
       puts "" # => 'HTTPOK' 
 
       puts "response['Set-Cookie']: #{response['Set-Cookie']}"                        # => String
-      puts "response.get_fields('set-cookie'): #{response.get_fields('set-cookie')}" # => Array
-      puts "response.to_hash['set-cookie']: #{response.to_hash['set-cookie']}"    # => Array
+      puts "response.get_fields('set-cookie'): #{response.get_fields('set-cookie')}"  # => Array
+      puts "response.to_hash['set-cookie']: #{response.to_hash['set-cookie']}"        # => Array
       puts "Headers: #{response.to_hash.inspect}"
     
       puts "response: #{response}"

@@ -5,6 +5,7 @@ module ZtBtce
   #   Ref:  https://btc-e.nz/api/3/documentation
   #   
   #   23.07.2017  ZT
+  #   31.08.2017  Update with HTTP request error handlig
   ##############################################################################
   def self.public_api method, options = {}
     # Hanlde options
@@ -21,9 +22,9 @@ module ZtBtce
     when 'ticker'
       limit = nil
     when 'depth', 'trades'
-      # it's OK. both: pairs and limit to be applied
+      # it's OK. both: *pairs* and *limit* to be applied
     else 
-      return {:success => 0, :error => "Public API: Invalid method"}
+      return {:success => 0, :error => "zt_btce Public API: Invalid method"}
     end
 
     uri =  URI "#{uri}/#{method}/#{pairs}"   # Add Method & Pairs
@@ -34,17 +35,28 @@ module ZtBtce
     # Send a request
     begin
       response = Net::HTTP.get(uri)
-    rescue Timeout::Error, Errno::EINVAL, Errno::ECONNRESET, EOFError,
-           Net::HTTPBadResponse, Net::HTTPHeaderSyntaxError, Net::ProtocolError => e
+#    rescue Timeout::Error,       Errno::EINVAL,              Errno::ECONNRESET, EOFError,
+#           Net::HTTPBadResponse, Net::HTTPHeaderSyntaxError, Net::ProtocolError => e
     rescue StandardError => e
       return {:success => 0, :error => e}
-      exit
+    else
+      begin 
+        return JSON.parse response
+      rescue
+        error_msg = "HTTP.get(#{uri}) failed \nTry: zt_btce *debug_connection* or CLI command: http #{uri}"
+        return {:success => 0, :error => error_msg}
+      end
     end
 
     # Return response as a Hash
-    JSON.parse response
+#    JSON.parse response
   end
   
+  def self.info
+    response = public_api 'info'
+    public_error_check response        # Return result through error check at first
+  end
+ 
   ##############################################################################
   # Checks that response is not an error message aka:
   #   {"success":0, "error":"Invalid method"}
@@ -54,18 +66,13 @@ module ZtBtce
   ##############################################################################
   def self.public_error_check response
     if response.first.class == Array and response.first[0] == :success and response.first[1] == 0
-      puts colored RED, "#{timestamp}  Error in method '#{caller_locations(1,1)[0].label}': #{response[:error]}"
+      puts colored RED, "#{timestamp}  Error in zt_btce method '#{caller_locations(1,1)[0].label}': #{response[:error]}"
       {}
     else
       response
     end
   end
-  
-  def self.info
-    response = public_api 'info'
-    public_error_check response        # Return result through error check at first
-  end
-  
+
   def self.ticker opts = {}
     response = public_api 'ticker', pairs: opts[:pairs]
     public_error_check response
