@@ -1,7 +1,7 @@
 module ZtBtce
   ##############################################################################
   #   Sends a request to BTCE via Public API v3 and returns result as a Hash
-  #
+  #   (JSON.parse response)
   #   Ref:  https://btc-e.nz/api/3/documentation
   #   
   #   23.07.2017  ZT
@@ -47,9 +47,6 @@ module ZtBtce
         return {:success => 0, :error => error_msg}
       end
     end
-
-    # Return response as a Hash
-#    JSON.parse response
   end
   
   def self.info

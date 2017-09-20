@@ -43,7 +43,8 @@ module ZtBtce
 
 #  puts "-----   ticker   ------"
 #  puts ticker pairs: 'btc_rur-btc_eur-btc_usd'
-
+#  puts ticker.to_json
+  
 #  puts "-----   depth   ------"
 #  puts depth pairs: 'btc_rur', limit: 20
  
