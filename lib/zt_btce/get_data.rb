@@ -18,5 +18,8 @@ module ZtBtce
   DOMAIN = config_file['domain']
   KEY    = config_file['key']
   SECRET = config_file['secret']
-  puts SECRET[-1..-4]
+#  puts colored(BLUE, DOMAIN)
+#  puts colored(BLUE, KEY)
+#  puts colored(BLUE, SECRET)
+#  puts SECRET[-1..-4]
 end
