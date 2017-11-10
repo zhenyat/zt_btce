@@ -4,10 +4,11 @@
 module ZtBtce
   ##############################################################################
   #   Plays with Net::HTTP connections to fallen BTC-e
+  #   10.11.2017  Updated to handle secrets
   ##############################################################################
   def self.debug_connection
-    uri_string =  DOMAIN + '/api/3/info'
-#    uri_string = 'http://google.com'
+    uri_string =  get_domain + '/api/3/info'
+#   uri_string = 'http://google.com'
     puts "uri_sting = #{uri_string}"
     
     uri =  URI "#{uri_string}"

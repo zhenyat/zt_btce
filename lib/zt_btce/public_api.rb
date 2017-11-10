@@ -6,13 +6,14 @@ module ZtBtce
   #   
   #   23.07.2017  ZT
   #   31.08.2017  Update with HTTP request error handlig
+  #   10.11.2017  Updated to handle secrets
   ##############################################################################
   def self.public_api method, options = {}
     # Hanlde options
     options[:pairs].nil? ? pairs = 'btc_usd' : pairs = options[:pairs]
     limit = options[:limit] unless options[:limit].nil?
 
-    uri =  DOMAIN + '/api/3'    # Public API URI
+    uri =  get_domain + '/api/3'    # Public API URI
 
     # Just verify method / options
     case method
