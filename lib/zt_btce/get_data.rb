@@ -5,6 +5,7 @@
 #
 #   21.07.2017  ZT
 #   10.11.2017  Updated to handle secrets (new methods added)
+#   07.02.2018  Credentials handling added (5.2) vs secrets at 5.1
 ################################################################################
 module ZtBtce
   app_root = `pwd`.chomp    #!!! Rails.root is nil at the moment
@@ -27,7 +28,11 @@ module ZtBtce
     if const_defined?('DOMAIN')
       DOMAIN
     else
-      Rails.application.class.secrets.domain
+      if Rails.version < '5.2'
+        Rails.application.class.secrets.domain
+      else
+        Rails.application.credentials.config[:domain]
+      end  
     end
   end
 
@@ -35,7 +40,11 @@ module ZtBtce
     if const_defined?('KEY')
       KEY
     else
-      Rails.application.class.secrets.api_key
+      if Rails.version < '5.2'
+        Rails.application.class.secrets.api_key
+      else
+        Rails.application.credentials.config[:api_key]
+      end  
     end
   end
   
@@ -43,7 +52,11 @@ module ZtBtce
     if const_defined?('SECRET')
       SECRET
     else
-      Rails.application.class.secrets.api_secret
+      if Rails.version < '5.2'
+        Rails.application.class.secrets.api_secret
+      else
+        Rails.application.credentials.config[:api_secret]
+      end  
     end
   end
 end
