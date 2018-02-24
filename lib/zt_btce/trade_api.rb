@@ -1,7 +1,7 @@
 module ZtBtce
   ##############################################################################
   #   Sends a request to BTCE Hash via Trade API 1 and returns result as a 
-  #   Ref:  https://btc-e.nz/tapi/docs#main
+  #   Ref:  https://wex.nz/tapi/docs#main
   #
   #   Args:
   #         method  - Name of the calling API Method
@@ -10,6 +10,7 @@ module ZtBtce
   #   
   #   25.07.2017  ZT
   #   10.11.2017  Updated to handle secrets
+  #   24.02.2018  Methods Trade & CancelOrder added
   ##############################################################################
   def self.trade_api method, options = {}
     
@@ -39,6 +40,10 @@ module ZtBtce
     end
   end
   
+  def self.cancel_order opts = {}
+    trade_error_check trade_api('CancelOrder', opts)
+  end
+    
   def self.order_info order_id, opts = {}
     if opts['mode'].nil?
       trade_error_check trade_api('OrderInfo', 'order_id' =>  order_id)
@@ -47,6 +52,19 @@ module ZtBtce
     end
   end
 
+  ##############################################################################
+  # The basic method that can be used for creating orders and trading on the exchange
+  # 
+  # Parameters:
+  #   pair	 - pair	(e.g. btc_usd)
+  #   type	 - order type	buy or sell
+  #   rate	 - the rate at which you need to buy/sell	- numerical
+  #   amount - the amount you need to buy / sell      - numerical
+  ##############################################################################
+  def self.trade opts = {}
+    trade_error_check trade_api('Trade', opts)
+  end
+  
   ##############################################################################
   # Checks that response is not an error message aka:
   #   {"success":0, "error":"no orders"}

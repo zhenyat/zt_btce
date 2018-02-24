@@ -63,4 +63,11 @@ module ZtBtce
 
 #  puts "-----    ActiveOrders   -----"
 #  puts order_info 343152, 'mode' => 'emulator'
+
+#  puts "-----    Trade (create orders)  -----"
+#  puts trade pair: 'btc_usd', type: 'buy', rate: 8000.0, amount: 0.01
+
+#  puts "-----    Cancel Order  -----"
+#  puts cancel_order order_id: 343152
+
 end
