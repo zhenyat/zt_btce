@@ -69,5 +69,4 @@ module ZtBtce
 
 #  puts "-----    Cancel Order  -----"
 #  puts cancel_order order_id: 343152
-
 end

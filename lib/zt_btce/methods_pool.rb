@@ -2,6 +2,7 @@
 # Library of common methods for the Gem
 #
 # 21.07.2017  ZT adapted from zt_admin
+# 26.02.2018  Update of nonce 
 ################################################################################
 
 #require 'fileutils'
@@ -41,10 +42,20 @@ module ZtBtce
     []
   end
   
+  ##############################################################################
+  #   Modified for case of a series of tapi requests within one second
+  #   ( Approach:   (Time.now.to_f*10).to_i  - Too big value for nonce)
+  ##############################################################################
   def self.nonce
-    Time.now.to_i
+    current = Time.now.to_i
+    if @last_value.nil? || current > @last_value
+      @last_value = current
+    else
+      @last_value += 1
+    end
+    @last_value
   end
-  
+
   def self.timestamp
     Time.now.strftime('%Y-%m-%d %H:%M:%S')
   end

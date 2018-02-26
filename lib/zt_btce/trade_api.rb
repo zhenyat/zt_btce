@@ -13,7 +13,7 @@ module ZtBtce
   #   24.02.2018  Methods Trade & CancelOrder added
   ##############################################################################
   def self.trade_api method, options = {}
-    
+
     # Generate list of API parameters for HTTP request
     final_hash = {"method" => method, "nonce" => nonce}.merge options
     api_params = URI.encode_www_form(final_hash)
