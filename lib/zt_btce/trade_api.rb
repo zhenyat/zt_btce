@@ -11,6 +11,7 @@ module ZtBtce
   #   25.07.2017  ZT
   #   10.11.2017  Updated to handle secrets
   #   24.02.2018  Methods Trade & CancelOrder added
+  #   27.02.2018  `trade_error_check` updated
   ##############################################################################
   def self.trade_api method, options = {}
 
@@ -67,17 +68,20 @@ module ZtBtce
   
   ##############################################################################
   # Checks that response is not an error message aka:
-  #   {"success":0, "error":"no orders"}
+  #   {"success": 0, "error": "no orders"}
   # If error: returns empty hash, otherwise: returns response
   # 
   # caller_locations(1,1)[0].label - the calling method
+  # 
+  # 27.02.2018  Updated
   ##############################################################################  
   def self.trade_error_check response
     if response.first[1] == 0  # status = 0
       puts colored RED, "#{timestamp}  Error in method '#{caller_locations(1,1)[0].label}': #{response['error']}"
-      {}
+#      {}
+      response    # Error returned for further handling
     else
-      response
+      response    # Data returned
     end
   end
 end
