@@ -13,7 +13,7 @@ module ZtBtce
     options[:pairs].nil? ? pairs = 'btc_usd' : pairs = options[:pairs]
     limit = options[:limit] unless options[:limit].nil?
 
-    uri =  get_domain + '/api/3'    # Public API URI
+    uri =  get_domain + '/api/v3'    # Public API URI
 
     # Just verify method / options
     case method

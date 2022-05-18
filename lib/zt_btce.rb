@@ -4,6 +4,7 @@ require 'json'
 require 'cgi'
 require 'openssl'
 require 'net/http'
+
 require 'zt_btce/setpar'
 require 'zt_btce/methods_pool'
 require 'zt_btce/get_data'
@@ -36,7 +37,7 @@ module ZtBtce
   
 #  error_check debug_connection
  
-   
+ 
 #####  Testing Public API   #####
 #  puts "-----   info   ------"
 #  puts info
